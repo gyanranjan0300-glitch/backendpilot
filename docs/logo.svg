@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="t">
+  <title id="t">BackendPilot logo</title>
+  <defs>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="0.45" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+    <radialGradient id="bg" cx="0.5" cy="0.4" r="0.75">
+      <stop offset="0" stop-color="#1e1b4b"/>
+      <stop offset="1" stop-color="#05040f"/>
+    </radialGradient>
+    <linearGradient id="top" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#c7c2f5"/>
+    </linearGradient>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7c3aed"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#a855f7"/>
+      <stop offset="1" stop-color="#3b82f6"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect x="16" y="16" width="480" height="480" rx="104" fill="url(#bg)"/>
+  <rect x="16" y="16" width="480" height="480" rx="104" fill="none" stroke="url(#edge)" stroke-width="6" filter="url(#glow)"/>
+
+  <!-- bracket frame -->
+  <g fill="none" stroke-width="7" stroke-linecap="round">
+    <path d="M216 110 H170 Q158 110 158 122 V160" stroke="#93c5fd"/>
+    <path d="M158 230 V262 Q158 274 170 274 H198" stroke="#a78bfa"/>
+    <path d="M354 172 V262 Q354 274 342 274 H310" stroke="#8b5cf6"/>
+  </g>
+
+  <!-- stacked layers -->
+  <g filter="url(#glow)">
+    <path d="M256 190 L340 222 L256 254 L172 222 Z" fill="url(#base)"/>
+    <path d="M172 222 V236 L256 268 V254 Z" fill="#5b21b6"/>
+    <path d="M340 222 V236 L256 268 V254 Z" fill="#2563eb"/>
+  </g>
+  <path d="M256 140 L340 172 L256 204 L172 172 Z" fill="url(#top)"/>
+  <path d="M172 172 V186 L256 218 V204 Z" fill="#a5a0e0"/>
+  <path d="M340 172 V186 L256 218 V204 Z" fill="#c4c0f0"/>
+  <g transform="translate(256 172) scale(1 0.62)" fill="none" stroke="#1e1b4b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-22 -12 L-36 0 L-22 12"/>
+    <path d="M22 -12 L36 0 L22 12"/>
+    <path d="M8 -18 L-8 18"/>
+  </g>
+
+  <!-- sparkle -->
+  <path d="M352 104 Q356 120 372 124 Q356 128 352 144 Q348 128 332 124 Q348 120 352 104 Z" fill="#e9d5ff" filter="url(#glow)"/>
+
+  <!-- wordmark -->
+  <text x="256" y="356" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="58" font-weight="800" letter-spacing="-1">
+    <tspan fill="#ffffff">Backend</tspan><tspan fill="url(#word)">Pilot</tspan>
+  </text>
+
+  <!-- tagline pill -->
+  <rect x="116" y="388" width="280" height="44" rx="22" fill="#110f2a" stroke="url(#edge)" stroke-width="2.5"/>
+  <text x="146" y="417" font-family="Consolas, Menlo, monospace" font-size="18" font-weight="700" fill="#ffffff">&gt;_</text>
+  <text x="182" y="417" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="18" fill="#e5e7eb">Your Backend Co-Pilot</text>
+</svg>

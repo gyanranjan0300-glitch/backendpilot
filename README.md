@@ -1,113 +1,202 @@
+<div align="center">
+
+<img src="docs/logo.svg" alt="BackendPilot" width="180" />
+
 # BackendPilot
 
-**Your AI Agent. Your Backend. Fully Configured.**
+### Your AI Agent. Your Backend. Fully Configured.
 
-BackendPilot is a set of [Agent Skills](https://agentskills.io/) that let an AI coding agent (Claude Code first) inspect, set up and verify Firebase and Supabase backends in existing apps. Skills contain real scripts that do and check the work; the agent plans and explains.
+[Agent Skills](https://agentskills.io/) that let AI coding agents **detect, plan, connect and safely change**<br/>Firebase and Supabase backends in real apps, with a preview, an approval step and rollback for every change.
 
-> **Status: 0.2.0, early.** Detection, planning, a safe change engine, and linking to an existing Firebase/Supabase project work. BackendPilot does not yet set up auth, databases or storage for you. That is on the [roadmap](ROADMAP.md).
+[![CI](https://github.com/gyanranjan0300-glitch/backendpilot/actions/workflows/ci.yml/badge.svg)](https://github.com/gyanranjan0300-glitch/backendpilot/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-8b5cf6.svg)](LICENSE)
+![Version](https://img.shields.io/badge/version-0.2.0-3b82f6.svg)
+![Node](https://img.shields.io/badge/node-%3E%3D20-38bdf8.svg)
+![Agent Skills](https://img.shields.io/badge/Agent%20Skills-compatible-a855f7.svg)
+![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-6366f1.svg)
 
-## The problem
+[Quick start](#-quick-start) · [Skills](#-skills) · [How it works](#-how-it-works) · [Safety](#-safety-first) · [Roadmap](ROADMAP.md) · [Architecture](ARCHITECTURE.md)
 
-Wiring a backend into an existing app means SDK installs, config files, env vars, auth providers, security rules or RLS policies, storage policies, and dashboard settings, all of which must match what the app already does. Agents asked to do this tend to guess. BackendPilot's first job is to stop the guessing by giving the agent an accurate picture of the project.
+</div>
 
-## What works today
+---
 
-### `backend-detect`
+> [!NOTE]
+> **Status: 0.2.0 (early).** Detection, planning, linking an existing Firebase or Supabase project, and a safe change engine work today. Automatic auth, database and storage setup is [on the roadmap](ROADMAP.md) and is **not** built yet.
 
-A read-only scanner that reports, with evidence for every claim:
+## ✨ Why BackendPilot?
+
+Wiring a backend into an existing app means SDKs, config files, env vars, auth providers, security rules or RLS, storage policies and dashboard settings, all of which must match the app you already have. AI agents asked to do this tend to guess.
+
+BackendPilot gives your agent:
+
+- 🔍 **Real facts** about your project, with the evidence behind each one
+- 🧭 **A reviewable plan** that's checked for security before anything changes
+- 🛡️ **A safe way to change files**: preview → your approval → apply → verify → rollback
+- 🔐 **No secrets leaked**: env values never appear in output, logs or previews
+
+## 🚀 Quick start
+
+**Requires:** [Node.js 20+](https://nodejs.org/). The skills have no dependencies, so there's nothing to `npm install`.
+
+```bash
+git clone https://github.com/gyanranjan0300-glitch/backendpilot.git
+```
+
+**Add the skills to your agent:**
+
+| Agent | Copy `skills/*` into |
+|---|---|
+| Claude Code | `~/.claude/skills/` (all projects) or `<project>/.claude/skills/` |
+| Kiro | `~/.kiro/skills/` |
+| Other [Agent Skills](https://agentskills.io/) agents | that agent's skills folder (untested) |
+
+<details>
+<summary>Windows (PowerShell)</summary>
+
+```powershell
+Copy-Item -Recurse -Force .\backendpilot\skills\* "$env:USERPROFILE\.claude\skills\"
+```
+</details>
+
+<details>
+<summary>macOS / Linux</summary>
+
+```bash
+mkdir -p ~/.claude/skills && cp -r backendpilot/skills/* ~/.claude/skills/
+```
+</details>
+
+**Then just ask your agent:**
+
+> 💬 *"What backend does this project use?"*<br/>
+> 💬 *"Plan Supabase auth with Google sign-in and a private notes table."*<br/>
+> 💬 *"Connect this project to my Supabase project."*
+
+## 🧩 Skills
+
+| | Skill | What it does | Writes files? |
+|---|---|---|---|
+| 🔍 | [`backend-detect`](skills/backend-detect/SKILL.md) | Scans the repo: frameworks, language, package manager, backend, auth, databases, storage, env var names, security findings | No |
+| 🧭 | [`backend-planner`](skills/backend-planner/SKILL.md) | Validates the agent's backend plan: access rules, auth methods, storage limits, secrets, steps | No |
+| 🔌 | [`provider-connect`](skills/provider-connect/SKILL.md) | Uses the Firebase / Supabase CLI and **your** login to list your projects and link one | No (makes a change set) |
+| 🛠️ | [`backend-execute`](skills/backend-execute/SKILL.md) | The only writer: preview, approval, backups, atomic writes, verification, rollback | Yes, after approval |
+
+<details>
+<summary><b>What <code>backend-detect</code> recognises</b></summary>
 
 - **Frameworks:** React, Next.js, Vue, Nuxt, Angular, Svelte, SvelteKit, Astro, Vite, Flutter
 - **Runtimes:** Node.js, Express, NestJS, Fastify, Hono
-- **Language and package manager:** TypeScript / JavaScript / Dart; npm, yarn, pnpm, bun, pub
-- **Backends:** Firebase, Supabase (plus detection only for Appwrite, Convex, PocketBase)
-- **Auth:** Firebase Auth, Supabase Auth, Auth.js, Clerk, Auth0, Passport, Better Auth, Lucia; sign-in methods used in code (email/password, Google, GitHub)
-- **Databases:** Firestore, Realtime Database, Supabase Postgres, Prisma, Drizzle, Mongoose, MongoDB, pg, MySQL, TypeORM, Sequelize, Knex, Kysely, SQLite, Redis; schema and migration files
-- **Storage and functions:** Firebase Storage, Supabase Storage, S3, Cloudinary, UploadThing, Vercel Blob; Cloud Functions, Edge Functions
-- **Routing and state:** Next.js App/Pages Router, React Router, TanStack Router, Vue Router, go_router; Redux, Zustand, Jotai, Pinia, MobX, TanStack Query, Riverpod, flutter_bloc
-- **Environment:** env var names referenced in code vs. defined in `.env*` files. Values are never output.
-- **Security findings:** committed or unignored `.env` files, service-account JSON in the repo, secrets behind client-exposed prefixes like `NEXT_PUBLIC_` or `VITE_`
+- **Backends:** Firebase, Supabase (detection only for Appwrite, Convex, PocketBase)
+- **Auth:** Firebase Auth, Supabase Auth, Auth.js, Clerk, Auth0, Passport, Better Auth, Lucia, plus the sign-in methods used in code
+- **Databases:** Firestore, Realtime Database, Supabase Postgres, Prisma, Drizzle, Mongoose, MongoDB, pg, MySQL, TypeORM, Sequelize, Knex, Kysely, SQLite, Redis
+- **Storage and functions:** Firebase Storage, Supabase Storage, S3, Cloudinary, UploadThing, Vercel Blob, Cloud Functions, Edge Functions
+- **Routing and state:** Next.js routers, React Router, TanStack Router, Vue Router, go_router, Redux, Zustand, Jotai, Pinia, MobX, TanStack Query, Riverpod, flutter_bloc
+- **Security findings:** committed or unignored `.env` files, service-account JSON files, secrets behind `NEXT_PUBLIC_` / `VITE_` prefixes
 
-Detection combines dependencies, config files and source imports, so a backend configured only in code is still found.
+Tested on 27 real projects.
+</details>
 
-### `backend-planner`
+## ⚙️ How it works
 
-The agent writes a backend plan (database entities with read/write rules, auth methods, storage buckets with size/type limits, dependencies, env vars, steps) as JSON. `check-plan.mjs` rejects insecure plans (public writes, missing policies, secrets exposed to the browser, `firebase-admin` in client code), adds the dashboard steps each sign-in method needs, and labels each step `automated`, `planned` or `manual`. It changes nothing.
-
-### `backend-execute`
-
-The engine every change goes through: **preview** (diff, env values hidden) → **approve** with a plan ID tied to that exact preview and the current file contents → **apply** with backups, an atomic write per file, and a journal → **verify** each step → automatic **rollback** on failure, or `rollback <runId>` later. Step types: `create`, `edit`, `json_merge`, `env_set`, `install` (npm/pnpm/yarn/bun), and allowlisted `supabase init` / `supabase link`. It blocks path traversal, credentials in source files, open Firebase rules, RLS being disabled, and unrestricted write policies.
-
-### `provider-connect`
-
-Uses the official `firebase` and `supabase` CLIs with **the user's own login** to check install and login state, list accessible projects, and build a change set that links one: `.firebaserc` default project, or `supabase init` + `supabase link`. API keys are never used for admin access.
-
-## Install
-
-Requires Node.js 20+. No npm install needed for the skills themselves.
-
-**Claude Code:** copy the folders under `skills/` into your project's `.claude/skills/` (or `~/.claude/skills/` for all projects). Each folder is self-contained. Then ask:
-
-> What backend does this project use?
-
-Any agent that supports the Agent Skills format can load the same folder. Only Claude Code has been considered during design; other agents are untested.
-
-**Directly:**
-
-```sh
-node skills/backend-detect/scripts/scan.mjs /path/to/app --format markdown
-node skills/backend-detect/scripts/scan.mjs /path/to/app            # JSON
+```mermaid
+flowchart LR
+  A["🗣️ You ask the agent"] --> D["🔍 detect"]
+  D --> P["🧭 plan"]
+  P --> C["🔌 connect"]
+  C --> X["🛠️ execute"]
+  X --> V{"✅ preview<br/>+ your approval"}
+  V -->|approve| W["apply, back up, verify"]
+  V -->|change| P
+  W -->|step fails| R["↩️ auto rollback"]
+  W -->|ok| S["🎉 verified result"]
 ```
 
-Example output (abridged):
+Every change goes through **one engine**:
 
-```
-## backend
-- **Firebase** (high): dependency `firebase` in package.json; file `firebase.json` in firebase.json
-## Findings
-- **CRITICAL** `SECRET_EXPOSED_TO_CLIENT` (.env.local): NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY uses a client-exposed prefix ...
+```text
+preview  →  you approve (plan ID tied to the exact diff)  →  apply with backups
+        →  verify each step  →  success   ·   failure → automatic rollback
 ```
 
-Report format: [skills/backend-detect/references/report-schema.md](skills/backend-detect/references/report-schema.md).
+<details>
+<summary><b>Use the scripts directly</b></summary>
 
-## Architecture
+```bash
+# 1. Scan a project
+node skills/backend-detect/scripts/scan.mjs ../my-app --format markdown
 
+# 2. See your cloud projects (log in first with `supabase login` / `firebase login`)
+node skills/provider-connect/scripts/connect.mjs supabase projects
+
+# 3. Make a change set, preview it, then apply with the ID the preview prints
+node skills/provider-connect/scripts/connect.mjs supabase select <ref> --root ../my-app --out ../my-app/link.json
+node skills/backend-execute/scripts/engine.mjs preview ../my-app/link.json --root ../my-app
+node skills/backend-execute/scripts/engine.mjs apply   ../my-app/link.json --approve <planId> --root ../my-app
+
+# 4. Undo
+node skills/backend-execute/scripts/engine.mjs runs --root ../my-app
+node skills/backend-execute/scripts/engine.mjs rollback <runId> --root ../my-app
 ```
-Agent ──reads──▶ SKILL.md (what to do, rules)
-      ──runs───▶ scripts/  (deterministic work, structured JSON out)
-      ◀─result── verified outcome + findings
-```
+</details>
 
-Details, the planned provider model and open design questions: [ARCHITECTURE.md](ARCHITECTURE.md).
+## 🛡️ Safety first
 
-## Skill catalog
+The engine **refuses** to:
 
-| Skill | Status |
+| ❌ Blocked | Why |
 |---|---|
-| `backend-detect` | Available |
-| `backend-planner` | Available (validates plans; does not generate rules, SQL or code) |
-| `backend-execute` | Available |
-| `provider-connect` | Available (links existing projects; no project creation) |
-| `firebase-setup`, `firebase-auth`, `firestore-setup` | Planned 0.3.0 |
-| `supabase-setup`, `supabase-auth`, `supabase-database`, `supabase-rls` | Planned 0.4.0 |
-| Storage skills, `security-audit`, `backend-doctor` | Planned 0.5.0 |
+| Write outside the project, or through `..` or a symlink that leads outside it | Path traversal |
+| Put private keys, service-role keys, tokens or DB passwords in source files | Leaked credentials |
+| Put secrets behind `VITE_` / `NEXT_PUBLIC_` prefixes | The bundler ships them to every browser |
+| Use `firebase-admin` or a service-role key in `'use client'` files | Admin access in client code |
+| Write Firebase rules like `allow write: if true` | Anyone could write |
+| Disable RLS, add open write policies, or create tables without RLS | Your data would be open to anyone |
+| Write to env files that git doesn't ignore | They'd get committed |
 
-## Security model
+You also get these guarantees:
 
-Local only, no server, no telemetry. Credentials come only from the user's own CLI login. Secret values are never written by the agent and never appear in previews, results or logs. Every change is previewed, approved, backed up and reversible. See [SECURITY.md](SECURITY.md).
+- 🔒 Env values are hidden in previews, results and logs
+- 🙋 Nothing changes until you approve the exact preview
+- 💾 Every file is backed up first, and edits you make later are never overwritten by a rollback
+- 🔑 Credentials come only from **your own** CLI login; API keys are never used for admin access
 
-## Limitations
+More in [SECURITY.md](SECURITY.md).
 
-- Static analysis only. It cannot see provider dashboard state: enabled sign-in methods, OAuth redirect URLs, deployed rules, live RLS status.
-- Source detection is regex-based and misses computed dynamic imports and build-time generated code.
-- Only `package.json` and `pubspec.yaml` ecosystems are covered.
-- No auth, database, storage or rules setup yet. No project creation.
-- Firebase project listing has been tested only with a fake CLI. Against the real CLI, only the "not logged in" path is verified.
-- Rolling back an install restores `package.json` and the lockfile but leaves `node_modules`.
+## 📊 Status
 
-## Contributing
+| Area | Status |
+|---|---|
+| Project detection | ✅ Done |
+| Plan validation | ✅ Done (does not generate rules, SQL or code yet) |
+| Safe execution engine | ✅ Done |
+| List and link Firebase / Supabase projects | 🟡 Supabase tested live; Firebase tested with a fake CLI |
+| Firebase auth, Firestore, storage setup | 🔜 0.3.0 |
+| Supabase auth, schema, RLS, storage | 🔜 0.4.0 |
+| Security audit, Backend Doctor | 🔜 0.5.0 |
+| Creating cloud projects | ⏸️ Manual for now |
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) and [DEVELOPMENT.md](DEVELOPMENT.md).
+**Known limits:** detection is static (it can't see dashboard settings); rolling back an install doesn't clean `node_modules`; only `package.json` and `pubspec.yaml` projects are covered.
 
-## License
+## 🧪 Development
 
-[MIT](LICENSE)
+```bash
+npm install
+npm run check        # lint + type check + skill validation + 42 tests
+```
+
+See [DEVELOPMENT.md](DEVELOPMENT.md) for live CLI tests and how to add a skill.
+
+## 🤝 Contributing
+
+PRs welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) first. Report security issues privately ([SECURITY.md](SECURITY.md)).
+
+<div align="center">
+
+---
+
+Made with 💜 for developers who'd rather build products than configure backends.
+
+[MIT License](LICENSE)
+
+</div>
