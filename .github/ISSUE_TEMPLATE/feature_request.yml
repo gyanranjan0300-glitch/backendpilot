@@ -1,0 +1,22 @@
+name: Feature request
+description: A new skill, provider, framework detection, or improvement
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to do that BackendPilot doesn't support?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: signals
+    attributes:
+      label: Detection signals (for new framework/provider detection)
+      description: Package names, config file names, or import paths that reliably identify it.

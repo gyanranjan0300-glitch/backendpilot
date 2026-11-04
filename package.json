@@ -1,0 +1,28 @@
+{
+  "name": "backendpilot",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Agent Skills for detecting, configuring and verifying Firebase and Supabase backends.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "lint": "eslint .",
+    "typecheck": "tsc -p .",
+    "validate:skills": "node scripts/validate-skills.mjs skills && node scripts/sync-shared.mjs --check",
+    "sync:shared": "node scripts/sync-shared.mjs",
+    "check": "npm run lint && npm run typecheck && npm run validate:skills && npm test",
+    "scan": "node skills/backend-detect/scripts/scan.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@types/node": "^22.0.0",
+    "eslint": "^9.0.0",
+    "globals": "^15.0.0",
+    "typescript": "^5.6.0",
+    "yaml": "^2.6.0"
+  }
+}

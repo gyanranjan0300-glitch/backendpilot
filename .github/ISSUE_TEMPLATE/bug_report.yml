@@ -1,0 +1,34 @@
+name: Bug report
+description: Something BackendPilot did wrong or detected incorrectly
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Security issue? Do not file it here. See SECURITY.md. Never paste secret values or full .env files."
+  - type: input
+    id: skill
+    attributes:
+      label: Skill
+      placeholder: backend-detect
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Minimal project layout (file names, relevant package.json deps) and the command or prompt used.
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: "OS, Node version, agent (e.g. Claude Code 2.x), BackendPilot version"
+    validations:
+      required: true
