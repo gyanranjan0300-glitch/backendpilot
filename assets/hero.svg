@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="440" viewBox="0 0 880 440" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b0a1f"/><stop offset="1" stop-color="#140f33"/></linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#38bdf8"/><stop offset=".5" stop-color="#8b5cf6"/><stop offset="1" stop-color="#3b82f6"/></linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c084fc"/><stop offset="1" stop-color="#60a5fa"/></linearGradient>
+  </defs>
+  <rect width="880" height="440" rx="24" fill="url(#bg)"/>
+  <rect x="1" y="1" width="878" height="438" rx="23" fill="none" stroke="url(#edge)" stroke-opacity=".6" stroke-width="2"/>
+
+  <text x="440" y="70" text-anchor="middle" font-size="34" font-weight="800" fill="#fff">Your agent stops <tspan fill="url(#word)">guessing</tspan> your backend.</text>
+  <text x="440" y="104" text-anchor="middle" font-size="16" fill="#a5a3c9">Four skills. One safe path from "what is this project?" to a verified change.</text>
+
+  <g font-size="14">
+    <!-- cards -->
+    <g transform="translate(40 140)">
+      <rect width="176" height="170" rx="16" fill="#17143a" stroke="#38bdf8" stroke-opacity=".7"/>
+      <circle cx="34" cy="38" r="18" fill="#0c4a6e"/><circle cx="31" cy="35" r="7" fill="none" stroke="#7dd3fc" stroke-width="3"/><path d="M36 40 L42 46" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round"/>
+      <text x="20" y="86" font-size="19" font-weight="700" fill="#fff">1 · Detect</text>
+      <text x="20" y="112" fill="#c7c5e6">Framework, backend,</text>
+      <text x="20" y="132" fill="#c7c5e6">auth, DB, env names.</text>
+      <text x="20" y="152" fill="#7dd3fc">read-only</text>
+    </g>
+    <g transform="translate(248 140)">
+      <rect width="176" height="170" rx="16" fill="#17143a" stroke="#a78bfa" stroke-opacity=".7"/>
+      <circle cx="34" cy="38" r="18" fill="#3b0764"/><path d="M26 30 H42 M26 38 H42 M26 46 H36" stroke="#d8b4fe" stroke-width="3" stroke-linecap="round"/>
+      <text x="20" y="86" font-size="19" font-weight="700" fill="#fff">2 · Plan</text>
+      <text x="20" y="112" fill="#c7c5e6">Schema, access rules,</text>
+      <text x="20" y="132" fill="#c7c5e6">auth, storage, steps.</text>
+      <text x="20" y="152" fill="#d8b4fe">security-checked</text>
+    </g>
+    <g transform="translate(456 140)">
+      <rect width="176" height="170" rx="16" fill="#17143a" stroke="#818cf8" stroke-opacity=".7"/>
+      <circle cx="34" cy="38" r="18" fill="#1e1b4b"/><path d="M24 38 H30 M38 38 H44 M30 31 V45 M38 31 V45 M30 31 H38 M30 45 H38" stroke="#a5b4fc" stroke-width="3" stroke-linecap="round"/>
+      <text x="20" y="86" font-size="19" font-weight="700" fill="#fff">3 · Connect</text>
+      <text x="20" y="112" fill="#c7c5e6">Your Firebase or</text>
+      <text x="20" y="132" fill="#c7c5e6">Supabase project.</text>
+      <text x="20" y="152" fill="#a5b4fc">your own CLI login</text>
+    </g>
+    <g transform="translate(664 140)">
+      <rect width="176" height="170" rx="16" fill="#17143a" stroke="#60a5fa" stroke-opacity=".7"/>
+      <circle cx="34" cy="38" r="18" fill="#172554"/><path d="M26 38 L32 44 L43 31" fill="none" stroke="#93c5fd" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="20" y="86" font-size="19" font-weight="700" fill="#fff">4 · Execute</text>
+      <text x="20" y="112" fill="#c7c5e6">Preview, approve,</text>
+      <text x="20" y="132" fill="#c7c5e6">verify, roll back.</text>
+      <text x="20" y="152" fill="#93c5fd">the only writer</text>
+    </g>
+    <g fill="#8b5cf6"><path d="M222 225 l12 -8 v16 z"/><path d="M430 225 l12 -8 v16 z"/><path d="M638 225 l12 -8 v16 z"/></g>
+  </g>
+
+  <g transform="translate(40 342)">
+    <rect width="800" height="60" rx="14" fill="#0f0d27" stroke="#2e2a5c"/>
+    <g font-size="15" text-anchor="middle">
+      <text x="100" y="27" font-size="22" font-weight="800" fill="#fff">27</text><text x="100" y="47" fill="#a5a3c9">real projects scanned</text>
+      <text x="300" y="27" font-size="22" font-weight="800" fill="#fff">42</text><text x="300" y="47" fill="#a5a3c9">automated tests</text>
+      <text x="500" y="27" font-size="22" font-weight="800" fill="#fff">0</text><text x="500" y="47" fill="#a5a3c9">env values ever printed</text>
+      <text x="700" y="27" font-size="22" font-weight="800" fill="#fff">100%</text><text x="700" y="47" fill="#a5a3c9">changes reversible</text>
+    </g>
+  </g>
+</svg>

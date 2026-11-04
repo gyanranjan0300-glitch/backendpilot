@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="470" viewBox="0 0 880 470" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="880" height="470" rx="22" fill="#0b0a1f"/>
+  <text x="440" y="48" text-anchor="middle" font-size="26" font-weight="800" fill="#fff">"Add Supabase and make the notes table work."</text>
+  <text x="440" y="76" text-anchor="middle" font-size="14" fill="#8b89b3">Same request, same agent.</text>
+
+  <!-- left -->
+  <g transform="translate(30 100)">
+    <rect width="400" height="340" rx="16" fill="#1a0f1f" stroke="#f87171" stroke-opacity=".55" stroke-width="1.5"/>
+    <text x="22" y="38" font-size="18" font-weight="800" fill="#fca5a5">✕  Agent alone</text>
+    <g font-family="Consolas, Menlo, monospace" font-size="13">
+      <rect x="18" y="58" width="364" height="72" rx="8" fill="#0f0a14"/>
+      <text x="30" y="80" fill="#8b89b3"># .env.local</text>
+      <text x="30" y="100" fill="#fecaca">NEXT_PUBLIC_SUPABASE_</text>
+      <text x="30" y="118" fill="#fecaca">SERVICE_ROLE_KEY=eyJhbGci…</text>
+      <rect x="18" y="142" width="364" height="72" rx="8" fill="#0f0a14"/>
+      <text x="30" y="164" fill="#8b89b3">-- migration.sql</text>
+      <text x="30" y="184" fill="#fecaca">alter table notes</text>
+      <text x="30" y="202" fill="#fecaca">  disable row level security;</text>
+    </g>
+    <g font-size="14" fill="#fecaca">
+      <text x="22" y="246">• Admin key shipped to every browser</text>
+      <text x="22" y="270">• Every user can read every note</text>
+      <text x="22" y="294">• Files changed with no preview</text>
+      <text x="22" y="318">• No backup, no undo</text>
+    </g>
+  </g>
+
+  <!-- right -->
+  <g transform="translate(450 100)">
+    <rect width="400" height="340" rx="16" fill="#0d1a24" stroke="#34d399" stroke-opacity=".55" stroke-width="1.5"/>
+    <text x="22" y="38" font-size="18" font-weight="800" fill="#6ee7b7">✓  With BackendPilot</text>
+    <g font-family="Consolas, Menlo, monospace" font-size="12.5">
+      <rect x="18" y="58" width="364" height="156" rx="8" fill="#08121a"/>
+      <text x="30" y="80" fill="#c084fc" font-weight="700">## Blocked</text>
+      <text x="30" y="102" fill="#fca5a5">- NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY:</text>
+      <text x="30" y="120" fill="#fecaca">  would be bundled into browser code</text>
+      <text x="30" y="142" fill="#fca5a5">- migration.sql: disables Row Level</text>
+      <text x="30" y="160" fill="#fecaca">  Security. BackendPilot never disables RLS.</text>
+      <text x="30" y="186" fill="#8b89b3">Not applicable until the blocked</text>
+      <text x="30" y="204" fill="#8b89b3">items are fixed.</text>
+    </g>
+    <g font-size="14" fill="#a7f3d0">
+      <text x="22" y="246">• Unsafe change stopped before writing</text>
+      <text x="22" y="270">• You see the diff, you approve it</text>
+      <text x="22" y="294">• Every file backed up and verified</text>
+      <text x="22" y="318">• One command to roll back</text>
+    </g>
+  </g>
+</svg>

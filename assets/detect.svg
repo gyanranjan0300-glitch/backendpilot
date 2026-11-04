@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420">
+  <rect width="880" height="420" rx="18" fill="#0b0a1f"/>
+  <rect x="1" y="1" width="878" height="418" rx="17" fill="none" stroke="#2e2a5c" stroke-width="2"/>
+  <rect x="1" y="1" width="878" height="40" rx="17" fill="#15123a"/>
+  <rect x="1" y="24" width="878" height="17" fill="#15123a"/>
+  <circle cx="26" cy="21" r="6" fill="#f87171"/><circle cx="46" cy="21" r="6" fill="#fbbf24"/><circle cx="66" cy="21" r="6" fill="#34d399"/>
+  <text x="440" y="26" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="13" fill="#8b89b3">backend-detect · read-only scan</text>
+  <g font-family="Consolas, Menlo, monospace" font-size="15">
+    <text x="28" y="76" fill="#8b89b3">$ <tspan fill="#e5e7eb">node scan.mjs ./my-app --format markdown</tspan></text>
+    <text x="28" y="110" fill="#c084fc" font-weight="700">## framework</text>
+    <text x="28" y="134" fill="#e5e7eb">- <tspan font-weight="700">Next.js</tspan> <tspan fill="#34d399">(high)</tspan>: dependency `next`; file `next.config.mjs`</text>
+    <text x="28" y="164" fill="#c084fc" font-weight="700">## backend</text>
+    <text x="28" y="188" fill="#e5e7eb">- <tspan font-weight="700">Supabase</tspan> <tspan fill="#34d399">(high)</tspan>: dependency `@supabase/supabase-js`; file `supabase/config.toml`</text>
+    <text x="28" y="218" fill="#c084fc" font-weight="700">## auth · database · storage</text>
+    <text x="28" y="242" fill="#e5e7eb">- Supabase Auth · GitHub sign-in · Supabase Postgres (1 migration) · Supabase Storage</text>
+    <text x="28" y="272" fill="#c084fc" font-weight="700">## Environment</text>
+    <text x="28" y="296" fill="#e5e7eb">- `.env.local`: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY  <tspan fill="#8b89b3">(values hidden)</tspan></text>
+    <text x="28" y="326" fill="#c084fc" font-weight="700">## Findings</text>
+    <rect x="22" y="338" width="836" height="50" rx="8" fill="#3f0d1a" stroke="#f87171" stroke-opacity=".6"/>
+    <text x="36" y="360" fill="#fca5a5" font-weight="700">CRITICAL <tspan fill="#fecaca" font-weight="400">SECRET_EXPOSED_TO_CLIENT (.env.local)</tspan></text>
+    <text x="36" y="380" fill="#fecaca">NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY uses a client-exposed prefix but looks like a secret.</text>
+  </g>
+</svg>
